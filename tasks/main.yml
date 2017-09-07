@@ -23,3 +23,16 @@
     type: string
     value: "{{ computername }}"
     state: present
+
+- name: get the boot disk name
+  when: change_diskname
+  shell: system_profiler SPSoftwareDataType | grep "Boot Volume" | sed "s/.*Boot Volume: //"
+  register: boot_disk_name_result
+  debug: var=boot_disk_name_result
+  changed_when: False
+  ignore_errors: yes
+
+- name: set the boot disk name
+  become: yes
+  shell: /usr/sbin/diskutil rename "boot_disk_name_result.stdout" "{{computername}}disk"
+  when: change_diskname and boot_disk_name_result.stdout != "{{computername}}disk"
