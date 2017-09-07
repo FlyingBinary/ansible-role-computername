@@ -26,7 +26,7 @@
 
 - name: get the boot disk name
   when: change_diskname
-  shell: system_profiler SPSoftwareDataType | grep "Boot Volume" | sed "s/.*Boot Volume: //"
+  shell: 'system_profiler SPSoftwareDataType | grep "Boot Volume" | sed "s/.*Boot Volume: //"'
   register: boot_disk_name_result
   debug: var=boot_disk_name_result
   changed_when: False
