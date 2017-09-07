@@ -30,7 +30,7 @@
     | grep "Boot Volume"
     | sed "s/.*Boot Volume: //"'
   register: boot_disk_name_result
-  debug: var=boot_disk_name_result
+  # debug: var=boot_disk_name_result
   changed_when: False
   ignore_errors: yes
 
